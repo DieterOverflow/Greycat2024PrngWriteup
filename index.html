@@ -371,12 +371,10 @@ Let's try it:</p>
   </p>
 <p>Not perfect, but better than expected considering our profound noise analysis:</p>
 <p>
-  <table style="width:100%">
+  <table style="width:50%">
   <tr>
-    <td style="width:50%">
+    <td style="width:100%">
       <img src="img/Welt.png" alt="world" style="object-fit: contain;">
-    </td>
-    <td style="width:50%">
     </td>
   </tr>
   </table>
@@ -986,6 +984,16 @@ What's your guess? (0/1): Congrats! Here is your flag: grey{Not_so_easy_to_const
 </video>
 
             <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
-            
+<script>
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    
+    if(w < h) {
+        for(let e of document.getElementsByTagName("table")) {
+            e.style = "width:100%";
+        }
+        document.getElementsByTagName("video")[0].width = "100%";
+    }
+</script>     
 </body>
 </html>
