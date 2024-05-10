@@ -200,7 +200,7 @@ You look for an alternative solution :)</p>
 But this is not the only <em>information</em> we get.</p>
 <h3 id="why-building-crypto-libraries-is-hard-meta-information">Why building crypto-libraries is hard: Meta Information</h3>
 <p><em>In this section, we go on a small tangent and <em>look at timing-based side-channel attacks</em>. Feel free to skip this section. But I promise it is interesting!</em></p>
-<p>Let's take a step back and consider the following password-checking <a href="code/password_check.py">code</a>:</p>
+<p>Let's take a step back and consider the following password-checking <a href="https://github.com/DieterOverflow/Greycat2024PrngWriteup/blob/880d11234b169fd8df8cea76e141f3aee927f10d/code/password_check.py">code</a>:</p>
 <pre><code class="language-py"><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_password</span>(<span class="hljs-params">user_input</span>):
     SECRET_PASSWORD = <span class="hljs-string">&quot;admin123&quot;</span>
     <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(user_input) != <span class="hljs-built_in">len</span>(SECRET_PASSWORD):
@@ -212,7 +212,7 @@ But this is not the only <em>information</em> we get.</p>
 
 </code></pre>
 <p>A bit complex to compare two strings (instead of just doing <code>return user_input == &quot;admin123&quot;</code>), but it seems to have no bugs, right?</p>
-<p>Suppose we run the code once each with passwords of different lengths and see how long the code takes (lines 36-42 of <a href="code/password_timing_attack.py">this code</a>):</p>
+<p>Suppose we run the code once each with passwords of different lengths and see how long the code takes (lines 36-42 of <a href="https://github.com/DieterOverflow/Greycat2024PrngWriteup/blob/880d11234b169fd8df8cea76e141f3aee927f10d/code/password_timing_attack.py#L36-L42">this code</a>):</p>
 <p>
 <table style="width:50%">
 <tr>
@@ -268,7 +268,7 @@ But surely the timing difference we get from an additional loop iteration if our
   </tr>
   </table>
   </p>
-<p>Now extending this to the full password is only a minor coding effort (lines 44-end of <a href="code/password_timing_attack.py">this code</a>):</p>
+<p>Now extending this to the full password is only a minor coding effort (lines 44-end of <a href="https://github.com/DieterOverflow/Greycat2024PrngWriteup/blob/880d11234b169fd8df8cea76e141f3aee927f10d/code/password_timing_attack.py#L44-L68">this code</a>):</p>
 <p>
   <table style="width:100%">
   <tr>
@@ -380,7 +380,7 @@ Let's try it:</p>
   </table>
   </p>
 <p>Keep in mind that we open a new connection for each measurement point increasing the amount of noise compared to a single connection.
-So for a single try, the noise will likely be lower and a run of 100 correct guesses in a row is not impossible. So once we have a threshold, let's just repeatedly try to run the exploit in a loop until we get the flag (<a href="code/sidechannel.py">full code here</a>):</p>
+So for a single try, the noise will likely be lower and a run of 100 correct guesses in a row is not impossible. So once we have a threshold, let's just repeatedly try to run the exploit in a loop until we get the flag (<a href="https://github.com/DieterOverflow/Greycat2024PrngWriteup/blob/880d11234b169fd8df8cea76e141f3aee927f10d/code/sidechannel.py">full code here</a>):</p>
 <pre><code>(...)
 try 97
 What's your guess? (0/1): Congrats! Here is your flag: grey{Not_so_easy_to_construct_a_secure_PRG_LaQSqprzmTjBZs8ygMkGuw}
@@ -389,7 +389,7 @@ What's your guess? (0/1): Congrats! Here is your flag: grey{Not_so_easy_to_const
 So in the actual CTF timeline, there is sadly no flag yet, and we are still trying to get it.</p>
 <h2 id="attempt-3---z3">Attempt 3 - Z3</h2>
 <p>As neither the randomness tests nor the side channel spit out a flag during the CTF, we looked another way.
-Still refusing to think about the underlying maths, we tried to transform the Python code into <code>z3</code> and let <code>z3</code> do all the maths for us (full code <a href="code/z3_attempt.py">here</a>, but we didn't bother to make it look nice as it doesn't work anyways).</p>
+Still refusing to think about the underlying maths, we tried to transform the Python code into <code>z3</code> and let <code>z3</code> do all the maths for us (full code <a href="https://github.com/DieterOverflow/Greycat2024PrngWriteup/blob/880d11234b169fd8df8cea76e141f3aee927f10d/code/z3_attempt.py">here</a>, but we didn't bother to make it look nice as it doesn't work anyways).</p>
 <p>However, it turns out our code adds over <code>500,000</code> constraints (for each single output we have to test whether it is pseudo-random) and <code>z3</code> probably won't finish computing until the heat death of the universe, much less before our TCP connections break or the CTF ends.
 And we need to do this 100 times.</p>
 <p>So letting <code>z3</code> decide whether the constraints are solvable (thus the number could come from the pseudo-random number generator) is infeasible.</p>
