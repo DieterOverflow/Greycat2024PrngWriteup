@@ -978,7 +978,7 @@ What's your guess? (0/1): Congrats! Here is your flag: grey{Not_so_easy_to_const
 </code></pre>
 
 <p>Here is a nice video of our exploit leaking the flag:</p>
-<video width="50%" controls>
+<video style="width:50%" controls>
   <source src="video/solve.mp4" type="video/mp4">
   Your browser does not support HTML video.
 </video>
@@ -992,7 +992,7 @@ What's your guess? (0/1): Congrats! Here is your flag: grey{Not_so_easy_to_const
         for(let e of document.getElementsByTagName("table")) {
             e.style = "width:100%";
         }
-        document.getElementsByTagName("video")[0].width = "100%";
+        document.getElementsByTagName("video")[0].style = "width:100%";
     }
 </script>     
 </body>
